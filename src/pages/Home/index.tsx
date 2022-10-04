@@ -1,4 +1,4 @@
-import { Empty, Flex, Heading, Spinner, useLoading, Image, Text, Button } from "@atmoutsourcing/siakit";
+import { Empty, Flex, Heading, Spinner, useLoading, Image, Text, Button, Separator } from "@atmoutsourcing/siakit";
 import { useEffect, useState } from "react"
 import api from "../../services/api";
 
@@ -52,14 +52,17 @@ export function Home(){
         )
         })}
 
-        <Button type="button" onClick={()=> handlePage('back') } disabled={page < 2}>
-          Voltar
-        </Button>
+        <Separator/>
 
-        <Button type="button" onClick={()=> handlePage('next') }>
-          Proxima página
-        </Button >
+        <Flex height={100} width={800} align="center" justify="space-between" >
+          <Button type="button" onClick={()=> handlePage('back') } disabled={page < 2}>
+            Voltar
+          </Button>
 
+          <Button type="button" onClick={()=> handlePage('next') }>
+            Proxima
+          </Button>
+        </Flex>
     </Flex>
   )
 }
