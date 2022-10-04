@@ -1,18 +1,17 @@
 import { Route, Routes } from 'react-router-dom';
-import { TelaPrincipal } from '../pages/TelaPrincipal';
-import { TelaSecundaria } from '../pages/TelaSecundaria';
 import { Erro } from '../pages/Erro';
 import { Favoritos } from '../pages/Favoritos';
 import { Filmes } from '../pages/Filmes';
+import { Home } from '../pages/Home';
 
 export default function Router(): JSX.Element {
   return (
     <Routes>
-      <Route path="/" element={<TelaPrincipal />} />
+      <Route path="/" element={<Home />} />
       <Route path="/filme/:id" element={<Filmes />} />
-      <Route path="/favoritos" element={<TelaPrincipal />} />
+      <Route path="/favoritos" element={<Favoritos />} />
 
-      <Route path="*" element={<TelaSecundaria />} />
+      <Route path="*" element={<Erro />} />
     </Routes>
   );
 }
