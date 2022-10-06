@@ -1,5 +1,7 @@
-import { Empty, Flex, Heading, Spinner, useLoading, Image, Text, Button, Separator } from "@atmoutsourcing/siakit";
+import { Empty, Flex, Heading, Spinner, useLoading, Image, Text, Button, Separator, Grid } from "@atmoutsourcing/siakit";
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom";
+import { SeeMore } from "../../components/SeeMore";
 import api from "../../services/api";
 
 export function Home(){
@@ -7,6 +9,7 @@ export function Home(){
   const [ filmes, setFilmes ] = useState<any[]>([]);
   const [ loading, setLoading ] = useState(true);
   const [ page, setPage ] = useState(1);
+  
 
   useEffect(() => {
 
@@ -16,7 +19,6 @@ export function Home(){
           api_key: "8ee9ecf01c128d1c2153fb207a20e759",
           language: "pt-BR",
           page,
-          per_page: 8
         }
       })
 
@@ -48,6 +50,10 @@ export function Home(){
             {filme.title}
           </Heading>
           <Image ratio={2} alt="poster do filme" src={`https://image.tmdb.org/t/p/original/${filme.poster_path}`} />
+          
+          <Link to={`/filme/${filme.id}`}>
+            <SeeMore title="Acessar"/>
+          </Link>
         </Flex>
         )
         })}

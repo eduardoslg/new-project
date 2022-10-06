@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export function Header(): JSX.Element {
   return (
     <>
-      <Flex  height={80} flex justify="space-around" align="center">
+      <Flex  height={70} flex justify="space-around" align="center">
         
         <Link style={{ textDecoration: 'none'}} to="/">
           <Heading size="2xl">
