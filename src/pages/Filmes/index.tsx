@@ -1,7 +1,11 @@
+<<<<<<< Updated upstream
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from 'react-router-dom';
 
 import api from '../../services/api';
+=======
+import { Grid } from "@atmoutsourcing/siakit";
+>>>>>>> Stashed changes
 
 export function Filmes(){
 
@@ -40,9 +44,9 @@ export function Filmes(){
 
   return (
     <>
-      <div>
-        <p>Página de Filmes.</p>
-      </div>
+      <Grid columns={"fr"}>
+        <p>teste</p>
+      </Grid>
     </>
   )
 }

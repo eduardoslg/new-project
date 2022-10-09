@@ -1,4 +1,4 @@
-import { Empty, Flex, Heading, Spinner, useLoading, Image, Text, Button, Separator, Grid } from "@atmoutsourcing/siakit";
+import { Empty, Flex, Heading, Spinner, useLoading, Image, Text, Button, Separator } from "@atmoutsourcing/siakit";
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 import { SeeMore } from "../../components/SeeMore";
@@ -14,17 +14,21 @@ export function Home(){
   useEffect(() => {
 
     async function loadFilmes(){
-      const response = await api.get("/movie/now_playing", {
+      await api.get("/movie/now_playing", {
         params: {
           api_key: "8ee9ecf01c128d1c2153fb207a20e759",
           language: "pt-BR",
           page,
         }
       })
-
-      console.log(response.data.results.slice(0, 10))
-      setFilmes(response.data.results.slice(0, 10));
-      setLoading(false);
+      .then((res) => {
+        const response = res.data.results.slice(0, 10)
+        setFilmes(response)
+        setLoading(false)
+      })
+      .catch((error) => {
+        toast.danger({ title: "erro!", text: `${error}`})
+      })
     }
 
     loadFilmes();
@@ -37,7 +41,7 @@ export function Home(){
   return (
 
     <Flex direction="column" flex justify="center" align="center">
-      {loading && (
+      {loading ? (
         <Flex flex height="600px" align="center" justify="center" margin="150px"> 
           <Empty title="Carregando..." description="Sua internet está lenta, aguarde mais um pouco..."/>
         </Flex>
@@ -50,10 +54,6 @@ export function Home(){
             {filme.title}
           </Heading>
           <Image ratio={2} alt="poster do filme" src={`https://image.tmdb.org/t/p/original/${filme.poster_path}`} />
-          
-          <Link to={`/filme/${filme.id}`}>
-            <SeeMore title="Acessar"/>
-          </Link>
         </Flex>
         )
         })}
