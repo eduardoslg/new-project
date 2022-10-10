@@ -1,4 +1,4 @@
-import { Empty, Flex, Heading, Spinner, useLoading, Image, Text, Button, Separator } from "@atmoutsourcing/siakit";
+import { Empty, Flex, Heading, Spinner, useLoading, Image, Text, Button, Separator, toast, Card, Grid } from "@atmoutsourcing/siakit";
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom";
 import { SeeMore } from "../../components/SeeMore";
@@ -45,30 +45,37 @@ export function Home(){
         <Flex flex height="600px" align="center" justify="center" margin="150px"> 
           <Empty title="Carregando..." description="Sua internet está lenta, aguarde mais um pouco..."/>
         </Flex>
+      ) : (
+        <>
+        {filmes.map((filme) => {
+          return (
+            <Grid columns="600px" height={400} margin={30}>
+              <Card direction="column" align="center" justify="space-between">
+                <Heading>
+                  {filme.title}
+                </Heading>
+                <Image ratio={2} alt="poster do filme" src={`https://image.tmdb.org/t/p/original/${filme.backdrop_path}`} />
+                <Link to={`/filme/${filme.id}`}>
+                  <SeeMore title="Ver mais"/>
+                </Link>
+              </Card>
+            </Grid>
+            )
+            })}
+
+            <Separator/>
+
+            <Flex height={100} width={800} align="center" justify="space-between" >
+              <Button type="button" onClick={()=> handlePage('back') } disabled={page < 2}>
+                Voltar
+              </Button>
+
+              <Button type="button" onClick={()=> handlePage('next') }>
+                Proxima
+              </Button>
+            </Flex>
+        </>
       )}
-
-    {filmes.map((filme) => {
-      return (
-        <Flex key={filme.id} direction="column" width={800} flex justify="center" align="center" margin="50px">
-          <Heading>
-            {filme.title}
-          </Heading>
-          <Image ratio={2} alt="poster do filme" src={`https://image.tmdb.org/t/p/original/${filme.poster_path}`} />
-        </Flex>
-        )
-        })}
-
-        <Separator/>
-
-        <Flex height={100} width={800} align="center" justify="space-between" >
-          <Button type="button" onClick={()=> handlePage('back') } disabled={page < 2}>
-            Voltar
-          </Button>
-
-          <Button type="button" onClick={()=> handlePage('next') }>
-            Proxima
-          </Button>
-        </Flex>
     </Flex>
   )
 }
